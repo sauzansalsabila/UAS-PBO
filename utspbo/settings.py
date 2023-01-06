@@ -17,7 +17,7 @@ import sqlite3
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-CSRF_TRUSTED_ORIGINS
+CSRF_TRUSTED_ORIGINS = ['web-production-033e.up.railway.app']
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
@@ -31,7 +31,6 @@ ALLOWED_HOSTS = ['localhost','web-production-033e.up.railway.app']
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
