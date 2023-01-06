@@ -57,7 +57,7 @@ def index(request):
     }
     return render(request, 'index.html', data)
 
-@login_required(login_url='login')
+
 def about(request, id):
     aboutlagus = lagu.objects.get(pk=id)
     data = {
