@@ -29,8 +29,6 @@ DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
-ALLOWED_HOSTS = ["https://web-production-3468.up.railway.app"]
-
 
 # Application definition
 
