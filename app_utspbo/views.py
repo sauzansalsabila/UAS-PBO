@@ -11,6 +11,8 @@ from django.conf import settings
 from django.http import Http404
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, HttpResponse
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
 
 def LoginPage(request):
     if request.method=='POST':
@@ -25,27 +27,28 @@ def LoginPage(request):
 
     return render (request,'login.html')
 
-def SignupPage(request):
-    if request.method=='POST':
-        uname=request.POST.get('username')
-        email=request.POST.get('email')
-        pass1=request.POST.get('password1')
-        pass2=request.POST.get('password2')
-
-        if pass1!=pass2:
-            return HttpResponse("Your password and confrom password are not Same!!")
+def signup(request):
+    if request.POST:
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "User Berhasil Di buat!")
+            return redirect('signup')
         else:
-
-            my_user=User.objects.create_user(uname,email,pass1)
-            my_user.save()
-            return redirect('login')
-    return render (request,'signup.html')
+            messages.error(request, "Terjadi Kesalahan!")
+            return redirect('signup')
+    else:
+        form = UserCreationForm()
+        ctx = {
+            'form' : form,
+        }
+    return render(request, 'signup.html',ctx)
 
 def LogoutPage(request):
     logout(request)
     return redirect('login')
 
-@login_required(login_url='login')
+@login_required(login_url=settings.LOGIN_URL)
 def index(request):
     lagus = lagu.objects.all()
     petas = peta.objects.all()
@@ -67,7 +70,7 @@ def about(request, id):
     }
     return render(request, 'about.html', data)
 
-@login_required(login_url='login')
+@login_required(login_url=settings.LOGIN_URL)
 def index2(request):
     lagus = lagu.objects.all()
     data = {
@@ -77,7 +80,7 @@ def index2(request):
     }
     return render(request, 'index2.html', data)
 
-@login_required(login_url='login')
+@login_required(login_url=settings.LOGIN_URL)
 def crudpeta(request):
     petas = peta.objects.all()
     data = {
@@ -87,7 +90,7 @@ def crudpeta(request):
     }
     return render(request, 'crudpeta.html', data)
 
-
+@login_required(login_url=settings.LOGIN_URL)
 def tambah(request):
     if request.POST:
         form = Formlagu(request.POST)
@@ -110,7 +113,7 @@ def tambah(request):
             'form' : form,
         }
     return render(request, 'tambah.html', data)
-
+@login_required(login_url=settings.LOGIN_URL)
 def genre(request):
     genres = alattangkap.objects.all()
     data = {
@@ -119,7 +122,7 @@ def genre(request):
         'genres' : genres,
     }
     return render(request, 'genre.html', data)
-
+@login_required(login_url=settings.LOGIN_URL)
 def tambahpeta(request):
     if request.POST:
         form = Formpeta(request.POST)
@@ -142,7 +145,7 @@ def tambahpeta(request):
             'form' : form,
         }
     return render(request, 'tambahpeta.html', data)
-
+@login_required(login_url=settings.LOGIN_URL)
 def update(request, id):
     lagus = lagu.objects.get(id=id)
     template = 'update.html'
@@ -169,13 +172,13 @@ def update(request, id):
             'lagu' : lagus
         }
         return render(request, template, data)
-
+@login_required(login_url=settings.LOGIN_URL)
 def delete(request, id):
     lagus = lagu.objects.get(id=id)
     lagus.delete()
     
     return redirect("/index2")
-
+@login_required(login_url=settings.LOGIN_URL)
 def updatepeta(request, id):
     petas = peta.objects.get(id=id)
     template = 'updatepeta.html'
@@ -202,7 +205,7 @@ def updatepeta(request, id):
             'peta' : petas
         }
         return render(request, template, data)
-
+@login_required(login_url=settings.LOGIN_URL)
 def deletepeta(request, id):
     petas = peta.objects.get(id=id)
     petas.delete()
