@@ -30,7 +30,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["https://web-production-033e.up.railway.app/"]
 
-CSRF_TRUSTED_ORIGINS = [‘https://web-production-a763.up.railway.app/’]
 
 # Application definition
 
