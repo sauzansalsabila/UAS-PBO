@@ -18,4 +18,3 @@ django-environ==0.9.0
 django-social-share==2.2.1
 django-static-fontawesome==5.14.0.0
 Pillow==9.1.0
-psycopg2-binary==2.9.1
