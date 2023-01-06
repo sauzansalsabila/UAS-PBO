@@ -28,7 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['localhost','web-production-033e.up.railway.app']
 
-
+CSRF_FAILURE_VIEW
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
