@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<br><br><br><br>
+    <div class="container">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Alat Tangkap</th>
+                <th scope="col">Keterangan</th>
+            </tr>
+                
+            </thead>
+            <tbody>
+                {% for genre_lagu in genres %}
+            <tr> 
+                <td class="table-primary">{{genre_lagu.genre}}</td>
+                <td class="table-danger">{{genre_lagu.keterangan}}</td>
+               
+            </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+    
